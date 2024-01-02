@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>urlShortner</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #a3c4f3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        width: 30%;
+        height: 200px;
+        background-color: palegreen;
+        border: 2px solid black;
+      "
+    >
+      <h1 style="display: flex; align-items: center; justify-content: center">
+        URL Shortner
+      </h1>
+      <br />
+      <div>
+        <form
+          action="/url"
+          method="POST"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+          "
+        >
+          <label for="" style="font-weight: 600"> Enter URL : </label>
+          <input type="text" name="url" placeholder="https://example.com" />
+          <button type="submit">Generate</button>
+        </form>
+      </div>
+      <% if (locals.id) { %>
+      <p>URL Generated : http://localhost:3000/<%= id %></p>
+      <% } %>
+    </div>
+  </body>
+</html>

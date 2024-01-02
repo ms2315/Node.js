@@ -3,13 +3,25 @@ const app = express();
 const urlRoute = require("./routes/url");
 const { connectmongoDB } = require("./connection");
 const URL = require("./models/url");
+const path = require('path')  //built in module for ejs engine
+const staticRouter = require('./routes/staticRouter')
+
 
 const PORT = 3000;
 
+// set ejs engine
+app.set('view engine' , 'ejs');
+app.set('views' , path.resolve("./views"))
+
+app.use('/' , staticRouter);
+
+//middlewares 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 app.use("/url", urlRoute);
 
+//routes 
 app.get("/:shortID", async (req, res) => {
   const shortID = req.params.shortID;
   const entry = await URL.findOneAndUpdate(
@@ -23,7 +35,11 @@ app.get("/:shortID", async (req, res) => {
       },
     }
   );
-  return res.redirect(entry.redirectURL)
+  if(entry){
+    return res.redirect(entry.redirectURL)
+
+  }
+  
 });
 
 
